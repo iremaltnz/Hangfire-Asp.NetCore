@@ -1,9 +1,14 @@
 using Hangfire;
+using Hangfire.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IEmailSender,EmailSender>();
 
 // Storage
 builder.Services.AddHangfire(config => config.UseSqlServerStorage(builder.Configuration.GetConnectionString("HangFireConnection")));
@@ -30,6 +35,13 @@ app.UseHangfireDashboard("/hangfire");
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+});
 
 app.MapRazorPages();
 
