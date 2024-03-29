@@ -33,6 +33,7 @@ namespace Hangfire.Web.Controllers
 
         public IActionResult PictureSave()
         {
+            RecurringJobs.ReportingJob();
             return View();
         }
 
