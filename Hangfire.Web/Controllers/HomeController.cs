@@ -56,6 +56,8 @@ namespace Hangfire.Web.Controllers
 
                 string jobID = BackgroundJobs.DelayedJobs.AddWaterMarkJob(newFileName, "www.mysite.com");
 
+                ContinuationsJobs.WriteWatermarkStatusJıb(jobID,newFileName);
+
             }
 
             return View();
